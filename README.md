@@ -1,213 +1,243 @@
 ﻿#  Ninja Gen Z - Marketing Agency SaaS Platform
 
-> **Built by AI Agents** - A productivity and client management platform designed specifically for marketing agencies.
+> **AI-Agent-Driven Development** | A complete productivity platform for marketing agencies built by collaborative AI agents.
 
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
-![Tech](https://img.shields.io/badge/Stack-React%20%7C%20Supabase%20%7C%20NestJS-blue)
-
----
-
-##  Project Vision
-
-**Ninja Gen Z** is a specialized SaaS platform for marketing agencies featuring:
-
--  **Smart Work Systems** (90min work/15min break)
--  **Prayer Reminders** integration
--  **Mockup Previews** for social platforms
--  **Client Management** portals
--  **AI Agents** (Antigravity & Trae)
+![Status](https://img.shields.io/badge/Status-Phase%202%20Development-yellow)
+![Agents](https://img.shields.io/badge/Agents-Antigravity%20%7C%20Trae-purple)
+![Stack](https://img.shields.io/badge/Stack-React%20%7C%20Supabase%20%7C%20NestJS-blue)
 
 ---
 
-##  Architecture
+##  What is Ninja Gen Z?
 
-### **Multi-Agent System**
-- **Antigravity**: Frontend Development Agent (React + Vite)
-- **Trae**: Backend Development Agent (NestJS + Supabase)
-- **MCP Server**: Agent coordination hub
-
-### **Tech Stack**
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, Vite, Tailwind CSS |
-| Backend | NestJS, TypeScript |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth |
-| Automation | n8n |
-| Integrations | Meta API, Google Ads API |
+A specialized SaaS platform for marketing agencies featuring:
+-  **Smart Work Systems** (90min focused work / 15min break cycles)
+-  **Prayer Reminders** (Integrated Islamic prayer times)
+-  **Mockup Previews** (Real-time social media post previews)
+-  **Client Portal** (Transparent client communication)
+-  **AI Agents** (Antigravity for Frontend, Trae for Backend)
+-  **Ads Monitoring** (Meta & Google Ads integration)
 
 ---
 
-##  Quick Start
+##  AI Agent System
 
-### **Prerequisites**
-\\\ash
-Node.js >= 18.x
-Docker Desktop
-Git
+### **Active Agents**
+| Agent | Role | Status | Workspace |
+|-------|------|--------|-----------|
+| **Antigravity** | Frontend Dev | Active | \/frontend\ |
+| **Trae** | Backend Dev | Active | \/mcp-server\, \/backend\ |
+| **MCP Server** | Coordination Hub | Running | Port 3000 |
+
+### **How Agents Collaborate**
 \\\
 
-### **Installation**
+     CTO      (Human Orchestrator)
 
+       
+       v
+
+         MCP Server (Port 3000)      
+   Agent Status & Task Coordination   
+
+               
+       
+                       
+       v                v
+   
+ Antigravity          Trae     
+  (Frontend)     (Backend)  
+ Port: 5173                    
+   
+                       
+       
+                v
+         
+           Supabase   
+            Local     
+          Port: 58321 
+         
+\\\
+
+---
+
+##  For AI Agents
+
+### Before You Start
+1.  Read \.ai-agents/shared/context.md\ for project overview.
+2.  Check your introduction:
+    -   **Antigravity**: \.ai-agents/shared/antigravity-introduction.md\
+    -   **Trae**: \.ai-agents/shared/trae-introduction.md\
+3.  Review current tasks: \.ai-agents/shared/TODO.md\.
+4.  Check who's working: \.ai-agents/shared/agent-status.md\.
+
+### Your Workflow
+1.  **Check Status**: Query \gent_status\ table or check the markdown file.
+2.  **Read Docs**: Review relevant files for your task.
+3.  **Follow Rules**:
+    -   Antigravity: \.agent/rules/\
+    -   Trae: \.trae/rules/\
+4.  **Document Work**: Create session notes in your folder.
+5.  **Handoff**: Update TODO and create handoff entry.
+
+---
+
+##  Agent Coordination Protocol
+
+### Handoff System
+-   \gent_status\ table tracks active agent.
+-   \handoffs\ table logs task transfers.
+-   Agents must check status before starting work.
+
+### Agent Responsibilities
+
+| Agent | Responsibilities |
+|-------|-----------------|
+| **Antigravity** | React components, UI/UX, Tailwind, MCP client |
+| **Trae** | API endpoints, DB schema, Supabase, MCP server |
+
+### How to Handoff (SQL)
+\\\sql
+-- Check current agent
+SELECT * FROM agent_status ORDER BY updated_at DESC LIMIT 1;
+
+-- Create handoff
+INSERT INTO handoffs (from_agent, to_agent, task_description, status) 
+VALUES ('antigravity', 'trae', 'Dashboard UI complete - Ready for API integration', 'pending');
+\\\
+
+---
+
+##  Quick Start for AI Agents
+
+### ** Prerequisites Check**
 \\\powershell
-# Clone
-git clone https://github.com/YOUR_USERNAME/ninja-genz.git
+# Verify installations
+node --version        # Should be >= 18.x
+docker --version      # Docker Desktop required
+git --version         # Git required
+\\\
+
+---
+
+##  Step-by-Step Setup (Fresh Machine)
+
+### **Step 1: Clone Repository**
+\\\powershell
+git clone https://github.com/m2kky/ninja-genz.git
 cd ninja-genz
+\\\
 
-# Install dependencies
+### **Step 2: Install Dependencies**
+\\\powershell
+# Root dependencies
 npm install
-cd frontend && npm install && cd ..
-cd mcp-server && npm install && cd ..
 
-# Start Supabase
-npx supabase start
-
-# Configure environment variables
-# Copy .env.example to .env in frontend/ and mcp-server/
-\\\
-
-### **Development**
-
-\\\powershell
-# Terminal 1: MCP Server
-cd mcp-server
-npm run dev
-
-# Terminal 2: Frontend
+# Frontend dependencies
 cd frontend
-npm run dev
+npm install
+cd ..
 
-# Terminal 3: Supabase Studio
-start http://127.0.0.1:58323
+# MCP Server dependencies
+cd mcp-server
+npm install
+cd ..
 \\\
 
----
-
-##  Project Structure
-
-\\\
-ninja-genz/
- .agent/              # AI Agent configurations
- .trae/               # Trae agent files
- frontend/            # React + Vite (Antigravity)
-    src/
-       components/
-       services/
-       lib/
-    .env.example
- mcp-server/          # MCP Coordination Hub
-    src/
-       server.ts
-    .env.example
- backend/             # NestJS (Coming Soon)
- supabase/            # Database migrations
-    migrations/
- docs/                # Documentation
-    Database-Design-Document.md
-    Integration-Specifications.md
-    Wireframes/
- README.md
-\\\
-
----
-
-##  Database Schema
-
-### **Core Tables**
-- \gent_status\: Agent coordination
-- \handoffs\: Task handoff between agents
-- \users\: Agency users
-- \clients\: Client management
-- \	asks\: Task tracking
-
-[Full Schema Documentation](./docs/Database-Design-Document.md)
-
----
-
-##  Configuration
-
-### **MCP Server (.env)**
-\\\env
-SUPABASE_URL=http://127.0.0.1:58321
-SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_key
-PORT=3000
-\\\
-
-### **Frontend (.env)**
-\\\env
-VITE_SUPABASE_URL=http://127.0.0.1:58321
-VITE_SUPABASE_ANON_KEY=your_anon_key
-\\\
-
----
-
-##  Testing
-
+### **Step 3: Start Supabase (Database)**
 \\\powershell
-# Health Check
-curl http://localhost:3000/health
+# From project root
+npx supabase start
+\\\
 
-# MCP Status
-curl http://localhost:3000/mcp/status
+** IMPORTANT: Get Credentials**
+The output will show:
+\\\
+API URL: http://127.0.0.1:58321
+anon key: eyJ...
+service_role key: eyJ...
+\\\
+**Copy these keys - you'll need them in Step 4!**
+
+### **Step 4: Configure Environment Variables**
+
+#### **4.1 - MCP Server Environment**
+\\\powershell
+# Create mcp-server/.env
+cd mcp-server
+# Use the values from Step 3
+# SUPABASE_SERVICE_ROLE_KEY is required here!
+npm run dev
+\\\
+
+#### **4.2 - Frontend Environment**
+\\\powershell
+# Create frontend/.env
+cd frontend
+# Use the values from Step 3
+# VITE_SUPABASE_ANON_KEY is required here!
+npm run dev
 \\\
 
 ---
 
-##  Documentation
+##  Troubleshooting
 
-- [System Design](./docs/PART%203_%20COMPLETE%20SYSTEM%20DESIGN.md)
-- [Database Schema](./docs/Database-Design-Document.md)
-- [Integration Specs](./docs/Integration-Specifications.md)
-- [Wireframes](./docs/Wireframes/)
-- [Security & Compliance](./docs/Security-Compliance-Document.md)
+**Supabase won't start:**
+\\\powershell
+npx supabase stop
+npx supabase start
+\\\
 
----
+**Port conflicts:**
+-   MCP Server: Change \PORT\ in \.env\.
+-   Frontend: Update \ite.config.ts\ port.
 
-##  Roadmap
+**Database reset needed:**
+\\\powershell
+npx supabase db reset
+\\\
 
-### **Phase 1: Foundation** 
-- [x] MCP Server setup
-- [x] Database schema design
-- [x] Agent coordination system
-
-### **Phase 2: Core Features** 
-- [ ] Dashboard UI (Antigravity)
-- [ ] Task Management
-- [ ] Client Portal
-- [ ] Prayer Reminders
-
-### **Phase 3: Integrations** 
-- [ ] Meta API integration
-- [ ] Google Ads API
-- [ ] n8n automation workflows
-
-### **Phase 4: Advanced Features** 
-- [ ] Smart Work System
-- [ ] Mockup Previews
-- [ ] Analytics Dashboard
-- [ ] AI Assistant (Sanad)
+**Agent coordination issues:**
+-   Check \gent_status\ table.
+-   Verify MCP server is running on port 3000.
+-   Review handoff logs.
 
 ---
 
-##  Team
+##  Database Schema (Quick Ref)
 
-- **CTO/Architect**: Project Lead
-- **Antigravity**: Frontend Development Agent
-- **Trae**: Backend Development Agent
-
----
-
-##  License
-
-[MIT License](./LICENSE)
+**Core Tables:**
+-   \gent_status\ (id, agent_name, status, last_seen)
+-   \handoffs\ (id, from, to, task, status)
+-   \gent_status_log\ (history)
 
 ---
 
-##  Contributing
+##  Agent Documentation
 
-This is an AI-agent-driven development project. For contribution guidelines, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+### Essential Reading
+-   **Context**: \.ai-agents/shared/context.md\
+-   **Handoff Protocol**: \.ai-agents/shared/handoff-protocol.md\
+-   **Current Tasks**: \.ai-agents/shared/TODO.md\
+-   **Changelog**: \.ai-agents/shared/changelog.md\
 
 ---
 
-**Built with  by AI Agents for Marketing Agencies**
+##  Development Workflow URLS
+
+When all services are running:
+-   **Frontend**: http://localhost:5173
+-   **MCP Server**: http://localhost:3000
+-   **Supabase Studio**: http://localhost:54323
+-   **Supabase API**: http://localhost:54321
+
+---
+
+##  Contributing & License
+
+**Proprietary Software** - Internal development only.
+Issues tracked via GitHub.
+
+---
+*Last Updated: 2026-02-01*
