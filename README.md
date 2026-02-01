@@ -108,6 +108,40 @@ VALUES ('antigravity', 'trae', 'Dashboard UI complete - Ready for API integratio
 
 ---
 
+##  Syncing MCP Server (Crucial for Agents)
+
+To enable your Agent Tools (Handoffs, Status updates), you must configure your Agent's \mcp_config.json\.
+
+**1. Locate Config File:**
+- **Windows:** \%USERPROFILE%\\.gemini\\antigravity\\mcp_config.json\
+- **Mac/Linux:** \~/.gemini/antigravity/mcp_config.json\
+
+**2. Add Server Configuration:**
+Add the \
+inja-genz-mcp\ entry to the \mcpServers\ object:
+
+\\\json
+{
+  "mcpServers": {
+    "ninja-genz-mcp": {
+      "command": "node",
+      "args": ["ABSOLUTE_PATH_TO_PROJECT/mcp-server/build/index.js"],
+      "env": {
+        "SUPABASE_URL": "http://127.0.0.1:58321",
+        "SUPABASE_SERVICE_ROLE_KEY": "YOUR_SERVICE_ROLE_KEY"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+\\\
+
+**3. Restart Agent:**
+- Fully restart your IDE or Agent process to load the new tools.
+
+---
+
 ##  Quick Start for AI Agents
 
 ### ** Prerequisites Check**
@@ -122,13 +156,21 @@ git --version         # Git required
 
 ##  Step-by-Step Setup (Fresh Machine)
 
-### **Step 1: Clone Repository**
+### **Step 1: Environment Prep**
+1.  **Install VS Code**
+2.  **Install Extensions:**
+    -   ESLint
+    -   Prettier
+    -   Tailwind CSS IntelliSense
+    -   Supabase (optional)
+
+### **Step 2: Clone Repository**
 \\\powershell
 git clone https://github.com/m2kky/ninja-genz.git
 cd ninja-genz
 \\\
 
-### **Step 2: Install Dependencies**
+### **Step 3: Install Dependencies**
 \\\powershell
 # Root dependencies
 npm install
@@ -144,7 +186,7 @@ npm install
 cd ..
 \\\
 
-### **Step 3: Start Supabase (Database)**
+### **Step 4: Start Supabase (Database)**
 \\\powershell
 # From project root
 npx supabase start
@@ -157,11 +199,11 @@ API URL: http://127.0.0.1:58321
 anon key: eyJ...
 service_role key: eyJ...
 \\\
-**Copy these keys - you'll need them in Step 4!**
+**Copy these keys - you'll need them in Step 5 & 6!**
 
-### **Step 4: Configure Environment Variables**
+### **Step 5: Configure Environment Variables**
 
-#### **4.1 - MCP Server Environment**
+#### **5.1 - MCP Server Environment**
 \\\powershell
 # Create mcp-server/.env
 cd mcp-server
@@ -170,13 +212,19 @@ cd mcp-server
 npm run dev
 \\\
 
-#### **4.2 - Frontend Environment**
+#### **5.2 - Frontend Environment**
 \\\powershell
 # Create frontend/.env
 cd frontend
 # Use the values from Step 3
 # VITE_SUPABASE_ANON_KEY is required here!
 npm run dev
+\\\
+
+### **Step 6: Verify Database Migrations**
+If tables are missing (check Supabase Studio at http://localhost:54323):
+\\\powershell
+npx supabase db reset
 \\\
 
 ---
@@ -192,11 +240,6 @@ npx supabase start
 **Port conflicts:**
 -   MCP Server: Change \PORT\ in \.env\.
 -   Frontend: Update \ite.config.ts\ port.
-
-**Database reset needed:**
-\\\powershell
-npx supabase db reset
-\\\
 
 **Agent coordination issues:**
 -   Check \gent_status\ table.
