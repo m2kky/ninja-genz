@@ -1,45 +1,121 @@
-﻿#  Ninja Gen Z - Master Developer Guide
+﻿# 🥷 Ninja Gen Z - Master Developer Guide
 
-> **Version 1.0** | **Last Updated:** 2026-02-01
-> **Status:** Active Development (Phase 2)
+> **Version 2.0** | **Last Updated:** 2026-02-01  
+> **Status:** Active Development (Phase 1)  
+> **Deployment Target:** Coolify (Self-Hosted)
 
 This master guide serves as the central source of truth for all developers (Human & AI Agents) working on the Ninja Gen Z platform.
 
 ---
 
-##  Architecture Overview
+## 🏗️ Architecture Overview
 
-The system follows a modern **Agentic SaaS Architecture**:
+The system follows a modern **Agentic SaaS Architecture** designed for **self-hosted deployment on Coolify**:
 
-*   **Frontend**: React 18, Vite, Tailwind CSS (Antigravity Agent)
-*   **Backend**: Supabase (PostgreSQL, Auth, Realtime) + NestJS (Trae Agent)
-*   **Coordination**: Node.js MCP Server (Hub for Agent Handoffs)
-*   **AI**: OpenAI (GPT-4), Custom Agents
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    PRODUCTION ARCHITECTURE                       │
+├─────────────────────────────────────────────────────────────────┤
+│  Frontend (React)  →  Backend (NestJS)  →  Database (PostgreSQL)│
+│        ↓                    ↓                      ↓             │
+│  Nginx Container    API Container         Data Containers       │
+│                           ↓                      ↓               │
+│                       Redis              MinIO (Storage)         │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-###  Quick Links
-*   [Frontend Architecture](./Frontend-Architecture.md) - Component structure, state management, UI patterns.
-*   [Backend Architecture](./Backend-Architecture.md) - Supabase schema, Edge Functions, NestJS services.
-*   [Database Design](./Database-Design.md) - Tables, RLS policies, relationships.
-*   [API Specifications](./API-Specifications.md) - REST endpoints, MCP tools, Webhooks.
-*   [UI/UX Design System](./Technical-Documentation/UI-UX-Design-System.md) - Colors, typography, components.
+### 🔗 Quick Links
+
+| Document | Description |
+|----------|-------------|
+| [**TECH-STACK.md**](./TECH-STACK.md) | Complete technology stack details |
+| [Frontend Architecture](./Frontend-Architecture.md) | Component structure, state management |
+| [Backend Architecture](./Backend-Architecture.md) | NestJS modules, API design |
+| [Database Design](./Database-Design.md) | Prisma schema, relationships |
+| [UI/UX Design System](./Technical-Documentation/UI-UX-Design-System.md) | Colors, typography, components |
 
 ---
 
-##  Tech Stack & Standards
+## 🛠️ Tech Stack (Production Ready)
 
-### **Frontend**
-*   **Framework**: React 18 + Vite
-*   **Language**: TypeScript 5.x (Strict Mode)
-*   **Styling**: Tailwind CSS 3.4
-*   **State**: React Query (Server state), Zustand (Client state)
-*   **Routing**: React Router v6 (Data API)
-*   **Forms**: React Hook Form + Zod
+### **Frontend (Antigravity Agent)**
 
-### **Backend**
-*   **Database**: PostgreSQL 15 (Supabase)
-*   **API**: REST + Realtime Subscriptions
-*   **Auth**: Supabase Auth (JWT)
-*   **Server**: Express.js (MCP), NestJS (Core Logic)
+| Category | Technology | Version |
+|----------|------------|---------|
+| Framework | React | 19.x |
+| Build Tool | Vite (Rolldown) | 7.x |
+| Language | TypeScript | 5.9+ |
+| Styling | Tailwind CSS | 3.4 |
+| Server State | TanStack Query | 5.x |
+| Client State | Zustand | 4.x |
+| Routing | React Router | 7.x |
+| Forms | React Hook Form + Zod | 7.x / 3.x |
+| UI Primitives | Radix UI | Latest |
+| Drag & Drop | @dnd-kit | 6.x |
+| Rich Text | Tiptap | 2.x |
+
+### **Backend (Trae Agent - NestJS)**
+
+| Category | Technology | Version |
+|----------|------------|---------|
+| Framework | NestJS | 10.x |
+| Language | TypeScript | 5.3+ |
+| ORM | Prisma | 5.x |
+| Database | PostgreSQL | 16.x |
+| Cache | Redis | 7.x |
+| Auth | Passport.js + JWT | 4.x |
+| Real-time | Socket.io | 4.x |
+| Queue | Bull | 4.x |
+| Storage | MinIO | Latest |
+| Validation | class-validator | 0.14.x |
+
+### **Infrastructure**
+
+| Category | Technology |
+|----------|------------|
+| Deployment | Coolify (Self-Hosted) |
+| Containers | Docker + Docker Compose |
+| Web Server | Nginx (Frontend) |
+| File Storage | MinIO (S3-Compatible) |
+
+---
+
+## 🤖 Agent Collaboration Protocol
+
+### Agents
+
+| Agent | Role | Workspace |
+|-------|------|-----------|
+| **Antigravity** | Frontend Development | `/frontend` |
+| **Trae** | Backend Development | `/backend`, `/mcp-server` |
+
+### Workflow
+
+```
+1. Task Assignment
+   └→ User assigns task in chat or TODO.md
+
+2. Agent Execution
+   ├→ Antigravity: React components, pages, hooks
+   └→ Trae: NestJS modules, APIs, database
+
+3. Coordination (via MCP Hub)
+   ├→ Status updates in agent_status table
+   ├→ Handoffs in handoffs table
+   └→ Shared docs in /.ai-agents/shared/
+
+4. Integration
+   └→ Both agents work from shared types & contracts
+```
+
+### Communication Files
+
+| File | Purpose |
+|------|---------|
+| `/.ai-agents/shared/TODO.md` | Task assignments |
+| `/.ai-agents/shared/handoff-protocol.md` | Agent handoffs |
+| `/.ai-agents/shared/agent-status.md` | Current status |
+| `/.ai-agents/shared/changelog.md` | Change log |
 
 ---
 

@@ -2,6 +2,95 @@
 
 Use this file to request specific actions or data from the other agent.
 
+---
+
+## 🔴 [REQ-MCP-003] FULL MCP PROTOCOL IMPLEMENTATION
+
+**From**: Antigravity  
+**To**: Trae  
+**Status**: 🟡 PENDING  
+**Priority**: 🔴 HIGH  
+**Created**: 2026-02-01 17:55 EET
+
+### Summary
+
+Convert the current HTTP-based MCP Hub to a **Full MCP Protocol Server** with tools that enable automatic agent-to-agent communication.
+
+### Why This is Critical
+
+Currently:
+- ❌ I cannot automatically query backend APIs
+- ❌ I cannot get database schema programmatically
+- ❌ Communication requires manual file reading
+- ❌ No real automation between agents
+
+After Implementation:
+- ✅ I can call `get_api_docs("auth")` and get endpoints
+- ✅ I can call `get_db_schema()` and get tables
+- ✅ Full automation - no manual coordination needed
+- ✅ Real MCP Protocol integration
+
+### Full Specification
+
+📄 **See: [MCP-PROTOCOL-SPEC.md](./MCP-PROTOCOL-SPEC.md)**
+
+### Required Tools (Summary)
+
+| Tool | Purpose | Priority |
+|------|---------|----------|
+| `get_api_docs` | Get API endpoints for a module | 🔴 HIGH |
+| `get_db_schema` | Get database schema | 🔴 HIGH |
+| `get_agent_status` | Get agent status | 🟡 MEDIUM |
+| `create_handoff` | Create handoff to agent | 🟡 MEDIUM |
+| `get_handoffs` | Get pending handoffs | 🟡 MEDIUM |
+| `complete_handoff` | Complete a handoff | 🟡 MEDIUM |
+| `update_agent_status` | Update status | 🟢 LOW |
+| `get_available_hooks` | Get React hooks | 🟢 LOW |
+
+### Expected Duration
+
+4-6 hours
+
+### Files to Create/Modify
+
+```
+mcp-server/
+├── src/
+│   ├── index.ts              # NEW: MCP Protocol entry
+│   ├── tools/
+│   │   ├── index.ts          # NEW: Tool registry
+│   │   ├── api-docs.ts       # NEW: API documentation
+│   │   ├── db-schema.ts      # NEW: Database schema
+│   │   ├── handoffs.ts       # NEW: Handoff management
+│   │   └── agent-status.ts   # NEW: Agent status
+│   └── resources/
+│       └── index.ts          # NEW: Resources
+├── data/
+│   └── api-docs/             # NEW: API docs storage
+│       ├── auth.json
+│       ├── tasks.json
+│       └── ...
+└── package.json              # MODIFY: Add MCP entry point
+```
+
+### Acceptance Criteria
+
+- [ ] MCP Server runs as stdio process
+- [ ] All 8 tools are callable
+- [ ] `get_api_docs` returns accurate data
+- [ ] `get_db_schema` returns Prisma schema
+- [ ] Handoffs work end-to-end
+- [ ] I can connect via mcp_config.json
+
+### After Completion
+
+Update this handoff to ✅ COMPLETED and I will:
+1. Update my `mcp_config.json`
+2. Test all tools
+3. Start using them for frontend development
+
+---
+
 ## [HANDOFF-MCP-002] Client Connected - Ready for Handoff Tools
 
 **From**: Antigravity

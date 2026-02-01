@@ -5,6 +5,12 @@
 *.env
 !.env.example
 
+# Credentials (NEVER COMMIT!)
+credentials.local.yaml
+credentials.local.json
+*.credentials
+secrets.json
+
 # Dependencies
 node_modules/
 **/node_modules/

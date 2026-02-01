@@ -107,7 +107,7 @@ app.get('/mcp/status', async (req, res) => {
     res.json({ agents: data || [], connected: Array.from(connectedAgents.keys()) });
   } catch (err) {
     console.error('💥 Error:', err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
   }
 });
 
