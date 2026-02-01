@@ -1,0 +1,62 @@
+﻿# Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Supabase Local (keep structure, ignore data)
+supabase/.branches
+supabase/.temp
+.supabase/
+
+# Testing
+coverage/
+.nyc_output/
+*.test.js.snap
+
+# Misc
+*.bak
+*.tmp
+.cache/
+
+# Keep these files
+!.gitkeep
+
+node_modules
+.env
+.DS_Store
+dist
+build
+.vscode
